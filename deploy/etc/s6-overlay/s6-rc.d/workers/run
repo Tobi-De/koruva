@@ -1,0 +1,4 @@
+#!/command/with-contenv execlineb
+
+cd /app
+exec python -m koruva db_worker -v 3

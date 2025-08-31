@@ -1,0 +1,4 @@
+web: just dj runserver 8000
+tailwind: just dj tailwind watch
+worker: just dj db_worker -v 3
+events: just dj serve_events

@@ -1,0 +1,84 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+default_language_version:
+  python: python3.12
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-symlinks
+      - id: check-json
+      - id: check-merge-conflict
+        args: [--assume-in-merge]
+
+  - repo: https://github.com/asottile/reorder_python_imports
+    rev: v3.13.0
+    hooks:
+      - id: reorder-python-imports
+        args:
+          - "--application-directories=koruva"
+
+  - repo: https://github.com/adamchainz/djade-pre-commit
+    rev: "1.2.0"
+    hooks:
+      - id: djade
+        args: [--target-version, "5.1"]
+
+  - repo: https://github.com/adamchainz/django-upgrade
+    rev: "1.21.0"
+    hooks:
+      - id: django-upgrade
+        args: [--target-version, "5.1"]
+
+  - repo: https://github.com/tox-dev/pyproject-fmt
+    rev: "2.3.1"
+    hooks:
+      - id: pyproject-fmt
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.3
+    hooks:
+      - id: ruff
+        types_or: [python, pyi]
+        args: [--fix]
+      - id: ruff-format
+        types_or: [python, pyi]
+
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.5.9
+    hooks:
+      - id: uv-lock
+      - id: uv-export
+        args: ["--no-emit-project", "--output-file=requirements.txt", "--no-dev"]
+
+  - repo: local
+    hooks:
+      - id: django-migrations
+        name: Check django migrations
+        entry: just dj makemigrations --dry-run --check
+        language: system
+        types: [python]
+        pass_filenames: false
+
+      - id: rustywind
+        name: rustywind Tailwind CSS class linter
+        language: node
+        additional_dependencies:
+          - rustywind@latest
+        entry: rustywind
+        args: [--write]
+        types_or: [html]
+
+      - id: logchanges
+        name: update changelog
+        entry: just logchanges || true
+        language: system
+        pass_filenames: false
