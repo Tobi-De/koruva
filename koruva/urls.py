@@ -1,16 +1,15 @@
-from allauth.account.decorators import secure_admin_login
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.decorators import login_not_required
-from django.urls import include, path
+from django.urls import include
+from django.urls import path
+from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from health_check.views import MainView
-
-from koruva.core.views import favicon, robots_txt, security_txt
-
-admin.autodiscover()
-admin.site.login = secure_admin_login(admin.site.login)
+from koruva.core.views import favicon
+from koruva.core.views import robots_txt
+from koruva.core.views import security_txt
 
 urlpatterns = [
     path("android-chrome-192x192.png", favicon),
@@ -30,7 +29,6 @@ urlpatterns = [
         name="home",
     ),
     path("health/", login_not_required(MainView.as_view())),
-    path("accounts/", include("allauth.urls")),
     path(settings.ADMIN_URL, admin.site.urls),
 ]
 

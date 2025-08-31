@@ -1,0 +1,2 @@
+backend/**/_*/*.xml.njk
+backend/**/*/_*.xml.njk

@@ -1,19 +1,11 @@
 from __future__ import annotations
 
-from collections.abc import Callable
-from functools import wraps
-from typing import Any
-
-from datastar_py import ServerSentEventGenerator as SSE
-from datastar_py.django import DatastarResponse
-from django import forms
 from django.conf import settings
-from django.core.paginator import InvalidPage, Paginator
-from django.db.models import Q, QuerySet
-from django.http import Http404, HttpRequest
-from django.template.loader import render_to_string
-from django.template.response import TemplateResponse
-from django.urls import reverse
+from django.core.paginator import InvalidPage
+from django.core.paginator import Paginator
+from django.db.models import QuerySet
+from django.http import Http404
+from django.http import HttpRequest
 
 
 def paginate_queryset(

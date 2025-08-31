@@ -9,7 +9,7 @@ name = "koruva"
 version = "0.0.1"
 description = "null"
 readme = "README.md"
-authors = [{ name = "Tobi", email = "tobidegnon@proton.me" }]
+authors = [ { name = "Tobi", email = "tobidegnon@proton.me" } ]
 requires-python = ">=3.12"
 classifiers = [
   "Programming Language :: Python :: 3 :: Only",
@@ -18,10 +18,9 @@ classifiers = [
 ]
 dependencies = [
   "boto3",
-  "diskcache",
   "crispy-tailwind",
+  "diskcache",
   "django[argon2]>=5.1",
-  "django-allauth[socialaccount]",
   "django-anymail[amazon-ses]",
   "django-health-check",
   "django-htmx",
@@ -29,12 +28,10 @@ dependencies = [
   "django-litestream",
   "django-storages[s3]",
   "django-tailwind-cli",
+  "django-tasks",               # remove when merged into django hopefully for 5.2
   "django-template-partials",
   "django-unique-user-email",
-  "django-tasks", # remove when merged into django hopefully for 5.2
   "environs[django]",
-  "falco-app",
-  "falco-ui",
   "granian",
   "heroicons[django]",
   "pillow",
@@ -44,6 +41,34 @@ dependencies = [
 ]
 
 scripts.koruva = "koruva.__main__:main"
+
+[dependency-groups]
+dev = [
+  "coverage[toml]>=6.5",
+  "dj-notebook>=0.6.1",
+  "django-browser-reload",
+  "django-debug-toolbar",
+  "django-extensions",
+  "django-fastdev",
+  "django-stubs[compatible-mypy]",
+  "django-watchfiles",
+  "falco-app",
+  "falco-cli>=0.27.0a6",
+  "honcho",
+  "pytest",
+  "pytest-django",
+  "pytest-sugar",
+  "pytest-xdist",
+  "werkzeug[watchdog]>=3.0.1",
+]
+docs = [
+  "furo",
+  "myst-parser",
+  "sphinx",
+  "sphinx-autobuild",
+  "sphinx-copybutton",
+  "sphinx-design",
+]
 
 [tool.ruff]
 target-version = "py312"
@@ -99,7 +124,6 @@ addopts = "--reuse-db -n auto"
 norecursedirs = ".* bin build dist *.egg htmlcov logs node_modules static templates venv"
 python_files = "tests.py test_*.py *_tests.py"
 
-
 [tool.coverage.run]
 source_pkgs = [ "koruva", "tests" ]
 branch = true
@@ -111,7 +135,6 @@ tests = [ "tests", "*/koruva/tests" ]
 
 [tool.coverage.report]
 exclude_lines = [ "no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:" ]
-
 
 [tool.bumpversion]
 current_version = "0.0.1"
@@ -138,7 +161,6 @@ filename = "pyproject.toml"
 search = 'version = "{current_version}"'
 replace = 'version = "{new_version}"'
 
-
 [tool.mypy]
 python_version = "3.12"
 check_untyped_defs = true
@@ -162,7 +184,6 @@ module = [
   "health_check.*",
   "*.migrations.*",
 ]
-
 
 [tool.uv]
 default-groups = [ "dev", "docs" ]
@@ -227,33 +248,5 @@ sort_commits = "newest"
 
 [tool.falco]
 revision = "3c99a55d9433dcd2e3065bc0c26d60773809ac78"
-skip = ["playground.ipynb", "README.md", "*/static/*"]
+skip = [ "playground.ipynb", "README.md", "*/static/*" ]
 blueprint = "https://github.com/falcopackages/starter-template"
-
-[dependency-groups]
-dev = [
-  "django-extensions",
-  "django-browser-reload",
-  "django-debug-toolbar",
-  "dj-notebook>=0.6.1",
-  "Werkzeug[watchdog]>=3.0.1",
-  "django-stubs[compatible-mypy]",
-  "django-fastdev",
-  "django-watchfiles",
-  "coverage[toml]>=6.5",
-  "pytest",
-  "pytest-django",
-  "pytest-sugar",
-  "pytest-xdist",
-  "falco-cli>=0.27.0a6",
-  "honcho",
-]
-docs = [
-  "furo",
-  "sphinx",
-  "sphinx-autobuild",
-  "sphinx-copybutton",
-  "sphinx-design",
-  "myst-parser",
-]
-

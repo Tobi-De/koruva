@@ -254,4 +254,3 @@ build-docker-image:
     docker build -t "${image_name}:${current_version}" -f deploy/Dockerfile .
     docker tag "${image_name}:${current_version}" "${image_name}:latest"
     echo "Built docker image ${image_name}:${current_version}"
-

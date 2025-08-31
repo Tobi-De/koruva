@@ -16,7 +16,7 @@
 ```shell
 just setup
 ```
-Read the content of the justfile to understand what this command does. Essentially, it sets up your virtual environment, 
+Read the content of the justfile to understand what this command does. Essentially, it sets up your virtual environment,
 installs the dependencies, runs migrations, and creates a superuser with the credentials `admin@localhost` (email) and `admin` (password).
 
 ### Run the django development server
@@ -33,7 +33,7 @@ The simple way to run any django command, without having to activate your virtua
 just dj migrate
 ```
 
-You'll notice that contrary to a typical django project there is no `manage.py` file. The content that is usually in that file has been moved to `koruva/__main__.py`. 
+You'll notice that contrary to a typical django project there is no `manage.py` file. The content that is usually in that file has been moved to `koruva/__main__.py`.
 Instead of running `python manage.py command`, you can run (while your virtualenv is activated):
 
 ```shell

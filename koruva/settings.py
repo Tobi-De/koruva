@@ -5,7 +5,8 @@ from pathlib import Path
 
 import sentry_sdk
 from environs import Env
-from marshmallow.validate import Email, OneOf
+from marshmallow.validate import Email
+from marshmallow.validate import OneOf
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
 
@@ -125,17 +126,10 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
-    "crispy_forms",
-    "crispy_tailwind",
-    "django_htmx",
     "django_litestream",
     "django_tailwind_cli",
     "django_tasks",
     "django_tasks.backends.database",
-    "falco",
     "health_check",
     "health_check.cache",
     "health_check.contrib.migrations",
@@ -159,6 +153,7 @@ if not PROD:
         "django_browser_reload",
         "django_fastdev",
         # "django_watchfiles", # currently not working when html files are changed
+        "falco",
         *THIRD_PARTY_APPS,
     ]
 
@@ -219,7 +214,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.LoginRequiredMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "allauth.account.middleware.AccountMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
 ]
 if not PROD:
@@ -360,21 +354,6 @@ STATICFILES_FINDERS = (
 
 # 3. Third Party Settings
 # -------------------------------------------------------------------------------------------------
-
-# django-allauth
-ACCOUNT_LOGIN_METHODS = {"email"}
-
-ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https" if PROD else "http"
-
-ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*"]
-
-ACCOUNT_LOGOUT_REDIRECT_URL = "account_login"
-
-ACCOUNT_SESSION_REMEMBER = True
-
-ACCOUNT_UNIQUE_EMAIL = True
-
-LOGIN_REDIRECT_URL = "home"
 
 # django-anymail
 if PROD:

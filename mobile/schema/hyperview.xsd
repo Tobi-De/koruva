@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified"
+  targetNamespace="https://hyperview.org/hyperview"
+  xmlns:hv="https://hyperview.org/hyperview"
+  xmlns:alert="https://hyperview.org/hyperview-alert"
+  xmlns:filter="https://hyperview.org/filter"
+  xmlns:nav="https://hyperview.org/navigation"
+  xmlns:safe-area="https://hyperview.org/safe-area"
+  xmlns:scroll="https://hyperview.org/hyperview-scroll"
+  xmlns:share="https://hyperview.org/share"
+>
+  <xs:import
+    namespace="https://hyperview.org/hyperview-alert"
+    schemaLocation="../../schema/alert.xsd"
+  />
+  <xs:import
+    namespace="https://hyperview.org/hyperview-scroll"
+    schemaLocation="../../schema/scroll.xsd"
+  />
+  <xs:import
+    namespace="https://hyperview.org/bottom-sheet"
+    schemaLocation="bottom-sheet.xsd"
+  />
+  <xs:import
+    namespace="https://hyperview.org/filter"
+    schemaLocation="filter.xsd"
+  />
+  <xs:import
+    namespace="https://hyperview.org/navigation"
+    schemaLocation="navigation.xsd"
+  />
+  <xs:import namespace="https://hyperview.org/map" schemaLocation="map.xsd" />
+  <xs:import
+    namespace="https://hyperview.org/progress-bar"
+    schemaLocation="progress-bar.xsd"
+  />
+  <xs:import
+    namespace="https://hyperview.org/safe-area"
+    schemaLocation="safe-area.xsd"
+  />
+  <xs:import
+    namespace="https://hyperview.org/scroll-opacity"
+    schemaLocation="scroll-opacity.xsd"
+  />
+  <xs:import
+    namespace="https://hyperview.org/share"
+    schemaLocation="share.xsd"
+  />
+
+  <xs:redefine schemaLocation="../../schema/core.xsd">
+    <xs:simpleType name="action">
+      <xs:restriction base="hv:action">
+        <!-- Hyperview core -->
+        <xs:enumeration value="push" />
+        <xs:enumeration value="new" />
+        <xs:enumeration value="back" />
+        <xs:enumeration value="close" />
+        <xs:enumeration value="navigate" />
+        <xs:enumeration value="reload" />
+        <xs:enumeration value="deep-link" />
+        <xs:enumeration value="open-settings" />
+        <xs:enumeration value="dispatch-event" />
+        <xs:enumeration value="replace" />
+        <xs:enumeration value="replace-inner" />
+        <xs:enumeration value="append" />
+        <xs:enumeration value="prepend" />
+        <xs:enumeration value="show" />
+        <xs:enumeration value="hide" />
+        <xs:enumeration value="toggle" />
+        <xs:enumeration value="set-value" />
+        <xs:enumeration value="alert" />
+        <xs:enumeration value="copy-to-clipboard" />
+        <xs:enumeration value="select-all" />
+        <xs:enumeration value="unselect-all" />
+        <xs:enumeration value="scroll" />
+
+        <!-- Hyperview demo extensions -->
+        <xs:enumeration value="add-styles" />
+        <xs:enumeration value="share" />
+      </xs:restriction>
+    </xs:simpleType>
+
+    <xs:attributeGroup name="behaviorAttributes">
+      <!-- Hyperview core -->
+      <xs:attributeGroup ref="hv:behaviorAttributes" />
+
+      <!-- Hyperview demo extensions -->
+      <xs:attributeGroup ref="filter:filterAttributes" />
+      <xs:attributeGroup ref="nav:navAttributes" />
+      <xs:attributeGroup ref="share:shareAttributes" />
+    </xs:attributeGroup>
+
+    <!-- This redefines the behavior element with our custom actions / attributes -->
+    <xs:complexType name="behavior">
+      <xs:complexContent>
+        <xs:restriction base="hv:behavior">
+          <xs:sequence>
+            <xs:element
+              minOccurs="0"
+              maxOccurs="unbounded"
+              ref="alert:option"
+            />
+            <xs:element minOccurs="0" maxOccurs="unbounded" ref="hv:styles" />
+          </xs:sequence>
+          <xs:attributeGroup ref="hv:behaviorAttributes" />
+        </xs:restriction>
+      </xs:complexContent>
+    </xs:complexType>
+
+  </xs:redefine>
+  <xs:element name="behavior" type="hv:behavior" />
+</xs:schema>
